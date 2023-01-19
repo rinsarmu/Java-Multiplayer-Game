@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d940fc-54a5-4412-bd53-499e7dabdd01" name="Changes" comment="Creating pig game using Java">
+    <list default="true" id="d7d940fc-54a5-4412-bd53-499e7dabdd01" name="Changes" comment="Updating pig game using Java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/piggame/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/piggame/HelloApplication.java" afterDir="false" />
     </list>
@@ -61,7 +61,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674112692964</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Updating pig game using Java">
+      <created>1674113823855</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674113823855</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -77,6 +84,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creating pig game using Java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating pig game using Java" />
+    <MESSAGE value="Updating pig game using Java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updating pig game using Java" />
   </component>
 </project>

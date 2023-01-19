@@ -29,11 +29,10 @@ public class HelloApplication extends Application {
     VBox currentOne = new VBox();
     Text currentScoreTitle = new Text("Current");
     Text getCurrentScoreOne = new Text("0");
-
     Button newGame = new Button("New Game");
-
     Button rollDice = new Button("Roll Dice");
     Button hold = new Button("Hold");
+    Text rolledDice = new Text("0");
 
 
     @Override
@@ -46,11 +45,17 @@ public class HelloApplication extends Application {
         ui();
 
         rollDice.setOnAction(e->{
-
+            rolling();
         });
 
-
     }
+
+    private void rolling() {
+        int num =(int) (Math.floor((Math.random() * 6) + 1));
+        rolledDice.setText(String.valueOf(num));
+        System.out.println(num);
+    }
+
     private void ui() {
 
         player1.setStyle(" -fx-background-color:linear-gradient(to top left, #789682 0%, #bf2e34 100%)");
@@ -71,12 +76,15 @@ public class HelloApplication extends Application {
         newGame.setLayoutX(400);
         newGame.setPadding(new Insets(10));
         newGame.setStyle("-fx-border: none;");
-
         rollDice.setLayoutY(400);
         rollDice.setLayoutX(400);
         rollDice.setPadding(new Insets(10));
         rollDice.setStyle("-fx-border: none;");
         rollDice.setPrefWidth(100);
+
+        rolledDice.setLayoutY(400);
+        rolledDice.setLayoutX(400);
+        rolledDice.setStyle("-fx-border: none;");
 
 
         hold.setLayoutY(460);
@@ -100,7 +108,7 @@ public class HelloApplication extends Application {
 
         players.getChildren().addAll(player1, player2);
 
-        root.getChildren().addAll(players,newGame,rollDice,hold);
+        root.getChildren().addAll(players,newGame,rollDice,hold, rolledDice);
         scene = new Scene(root, 600,900);
         window.setScene(scene);
     }
