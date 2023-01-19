@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -44,6 +45,10 @@ public class HelloApplication extends Application {
         addCHildrens();
         ui();
 
+        rollDice.setOnAction(e->{
+
+        });
+
 
     }
     private void ui() {
@@ -64,12 +69,21 @@ public class HelloApplication extends Application {
 
         newGame.setLayoutY(30);
         newGame.setLayoutX(400);
+        newGame.setPadding(new Insets(10));
+        newGame.setStyle("-fx-border: none;");
 
         rollDice.setLayoutY(400);
         rollDice.setLayoutX(400);
+        rollDice.setPadding(new Insets(10));
+        rollDice.setStyle("-fx-border: none;");
+        rollDice.setPrefWidth(100);
 
-        hold.setLayoutY(450);
-        hold.setLayoutX(420);
+
+        hold.setLayoutY(460);
+        hold.setLayoutX(400);
+        hold.setPrefWidth(100);
+        hold.setPadding(new Insets(10));
+        hold.setStyle("-fx-border: none;");
 
         window.setMaxWidth(900);
         window.setMaxHeight(600);
