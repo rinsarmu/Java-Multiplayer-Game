@@ -27,17 +27,28 @@ public class HelloApplication extends Application {
     Group root = new Group();
     HBox players = new HBox();
     VBox player1 = new VBox();
-    VBox player2 = new VBox();
 
     Text playerOne = new Text("Player 1");
     Text scoreOne = new Text("score");
     VBox currentOne = new VBox();
-    Text currentScoreTitle = new Text("Current");
+    Text currentScoreTitleOne = new Text("Current");
     Text getCurrentScoreOne = new Text("0");
+
+    VBox player2 = new VBox();
+    Text playerTwoName = new Text("Player 1");
+    Text scoreTwo = new Text("score");
+    VBox currentTwo = new VBox();
+    Text currentScoreTitleTwo = new Text("Current");
+    Text getCurrentScoreTwo = new Text("0");
     Button newGame = new Button("New Game");
     Button rollDice = new Button("Roll Dice");
     Button hold = new Button("Hold");
     Text rolledDice = new Text("0");
+
+    int [] score= {0,0};
+
+    int currentscore = 0;
+    int activePlayer = 0;
 
 
     InputStream stream1,stream2,stream3,stream4,stream5,stream6;
@@ -46,10 +57,11 @@ public class HelloApplication extends Application {
     ImageView imageView = new ImageView();
     //Setting image to the image view
 
+
     @Override
     public void start(Stage stage) throws IOException {
 
-
+//        score=[2,2,3,4};
        window = stage;
        window.show();
         addCHildrens();
@@ -63,17 +75,44 @@ public class HelloApplication extends Application {
             }
         });
 
+        hold.setOnAction(e->{
+            holdBtn();
+        });
     }
 
+    private void switchPlayer(){
+        activePlayer = activePlayer == 0 ? 1 : 0;
+        System.out.println("Active player : " + activePlayer);
+
+    }
+
+    private void holdBtn(){
+        System.out.println("hold btn");
+        score[activePlayer] +=currentscore;
+        if(activePlayer==0){
+            getCurrentScoreOne.setText("2");
+//            getCurrentScoreOne.setText(String.valueOf(score[activePlayer]));
+        } else {
+
+        }
+    }
     private void rolling() throws FileNotFoundException {
         int num =(int) (Math.floor((Math.random() * 6) + 1));
-        rolledDice.setText(String.valueOf(num));
-        System.out.println(num);
 
-        stream2 =  new FileInputStream("/home/kuusaa/Pictures/dice/0" +num+".png");
-        image2 = new Image(stream2);
-        imageView.setImage(image2);
-        window.show();
+        if(num != 1) {
+
+            rolledDice.setText(String.valueOf(num));
+            System.out.println(num);
+
+            stream2 = new FileInputStream("/home/kuusaa/Pictures/dice/0" + num + ".png");
+            image2 = new Image(stream2);
+            imageView.setImage(image2);
+        }
+        {
+            switchPlayer();
+        }
+            window.show();
+
 
     }
 
@@ -129,8 +168,11 @@ public class HelloApplication extends Application {
     }
     private void addCHildrens() throws FileNotFoundException {
 
-        currentOne.getChildren().addAll(currentScoreTitle,getCurrentScoreOne);
+        currentOne.getChildren().addAll(currentScoreTitleOne,getCurrentScoreOne);
         player1.getChildren().addAll(playerOne, scoreOne,currentOne);
+
+        currentTwo.getChildren().addAll(currentScoreTitleTwo,getCurrentScoreTwo);
+        player2.getChildren().addAll(playerTwoName,scoreTwo,currentTwo);
 
         players.getChildren().addAll(player1, player2);
 
