@@ -62,7 +62,7 @@ public class HelloApplication extends Application {
 
         players.setStyle(" -fx-background-color:linear-gradient(to top left, #753682 0%, #bf2e34 100%)");
 
-        newGame.setLayoutY(20);
+        newGame.setLayoutY(30);
         newGame.setLayoutX(400);
 
         rollDice.setLayoutY(400);
