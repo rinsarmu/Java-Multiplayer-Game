@@ -78,37 +78,66 @@ public class HelloApplication extends Application {
         hold.setOnAction(e->{
             holdBtn();
         });
+
+        newGame.setOnAction(e->{
+            score[0] =0;
+            score[0]=0;
+            activePlayer =0;
+            currentscore = 0;
+            getCurrentScoreOne.setText("0");
+            getCurrentScoreTwo.setText("0");
+            switchUi();
+        });
     }
 
     private void switchPlayer(){
         activePlayer = activePlayer == 0 ? 1 : 0;
         System.out.println("Active player : " + activePlayer);
+        currentscore = 0;
 
     }
 
     private void holdBtn(){
         System.out.println("hold btn");
         score[activePlayer] +=currentscore;
+        System.out.println("Score : " + currentscore);
+        currentscore = 0;
         if(activePlayer==0){
-            getCurrentScoreOne.setText("2");
-//            getCurrentScoreOne.setText(String.valueOf(score[activePlayer]));
+//            getCurrentScoreOne.setText("2");
+            switchUi();
+            getCurrentScoreOne.setText(String.valueOf(score[activePlayer]));
+            activePlayer = 1;
         } else {
+            getCurrentScoreTwo.setText(String.valueOf(score[activePlayer]));
+            activePlayer = 0;
 
         }
     }
+
+    private void switchUi(){
+        if(activePlayer == 0 ){
+            player1.setStyle(" -fx-background-color:red;)");
+         player2.setStyle("-fx-background-color:linear-gradient(to top left, #789682 0%, #bf2e34 100%)");
+
+        } else {
+            player2.setStyle(" -fx-background-color:red;)");
+            player1.setStyle("-fx-background-color:linear-gradient(to top left, #789682 0%, #bf2e34 100%)");
+        }
+    }
+
     private void rolling() throws FileNotFoundException {
         int num =(int) (Math.floor((Math.random() * 6) + 1));
 
         if(num != 1) {
-
+            currentscore += num;
+            System.out.println("Current scor in : " + currentscore);
             rolledDice.setText(String.valueOf(num));
             System.out.println(num);
 
             stream2 = new FileInputStream("/home/kuusaa/Pictures/dice/0" + num + ".png");
             image2 = new Image(stream2);
             imageView.setImage(image2);
-        }
-        {
+        } else {
             switchPlayer();
         }
             window.show();
@@ -124,8 +153,12 @@ public class HelloApplication extends Application {
 
         playerOne.setLayoutY(20);
         playerOne.setLineSpacing(200);
+        currentOne.setAlignment(Pos.BOTTOM_CENTER);
 
         player2.setPrefWidth(450);
+        player2.setAlignment(Pos.TOP_CENTER);
+        currentTwo.setAlignment(Pos.CENTER);
+
 
         players.setPrefWidth(900);
         players.setPrefHeight(600);
