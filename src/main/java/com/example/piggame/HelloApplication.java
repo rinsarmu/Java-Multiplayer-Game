@@ -1,9 +1,6 @@
 package com.example.piggame;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import java.io.FileInputStream;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,15 +25,15 @@ public class HelloApplication extends Application {
     HBox players = new HBox();
     VBox player1 = new VBox();
 
-    Text playerOne = new Text("Player 1");
-    Text scoreOne = new Text("score");
+    Text playerOne = new Text("Natnaael");
+    Text scoreOne = new Text("0");
     VBox currentOne = new VBox();
     Text currentScoreTitleOne = new Text("Current");
     Text getCurrentScoreOne = new Text("0");
 
     VBox player2 = new VBox();
-    Text playerTwoName = new Text("Player 1");
-    Text scoreTwo = new Text("score");
+    Text playerTwoName = new Text("Robera");
+    Text scoreTwo = new Text("0");
     VBox currentTwo = new VBox();
     Text currentScoreTitleTwo = new Text("Current");
     Text getCurrentScoreTwo = new Text("0");
@@ -63,6 +60,7 @@ public class HelloApplication extends Application {
 
 //        score=[2,2,3,4};
        window = stage;
+       window.setTitle("Dice Game");
        window.show();
         addCHildrens();
         ui();
@@ -84,6 +82,9 @@ public class HelloApplication extends Application {
             score[0]=0;
             activePlayer =0;
             currentscore = 0;
+            scoreOne.setText("0");
+            scoreTwo.setText("0");
+
             getCurrentScoreOne.setText("0");
             getCurrentScoreTwo.setText("0");
             switchUi();
@@ -91,52 +92,63 @@ public class HelloApplication extends Application {
     }
 
     private void switchPlayer(){
+        switchUi();
+        if (activePlayer == 0) getCurrentScoreOne.setText("0");
+        else getCurrentScoreTwo.setText("0");
         activePlayer = activePlayer == 0 ? 1 : 0;
-        System.out.println("Active player : " + activePlayer);
+//        System.out.println("Active player : " + activePlayer);
         currentscore = 0;
 
-    }
-
-    private void holdBtn(){
-        System.out.println("hold btn");
-        score[activePlayer] +=currentscore;
-        System.out.println("Score : " + currentscore);
-        currentscore = 0;
-        if(activePlayer==0){
-//            getCurrentScoreOne.setText("2");
-            switchUi();
-            getCurrentScoreOne.setText(String.valueOf(score[activePlayer]));
-            activePlayer = 1;
-        } else {
-            getCurrentScoreTwo.setText(String.valueOf(score[activePlayer]));
-            activePlayer = 0;
-
-        }
     }
 
     private void switchUi(){
         if(activePlayer == 0 ){
-            player1.setStyle(" -fx-background-color:red;)");
-         player2.setStyle("-fx-background-color:linear-gradient(to top left, #789682 0%, #bf2e34 100%)");
+            player1.setStyle(" -fx-background-color:none;");
+            player2.setStyle("-fx-background-color:linear-gradient(to top left, #789682 0%, #bf2e34 100%)");
 
         } else {
-            player2.setStyle(" -fx-background-color:red;)");
+//            System.out.println(".....................................");
+            player2.setStyle(" -fx-background-color:none;");
             player1.setStyle("-fx-background-color:linear-gradient(to top left, #789682 0%, #bf2e34 100%)");
         }
     }
+    private void holdBtn(){
+//        System.out.println("hold btn");
+        score[activePlayer] +=currentscore;
+//        System.out.println("Score : " + currentscore);
+        currentscore = 0;
+        if(activePlayer==0){
+//            switchUi();
+            scoreOne.setText(String.valueOf(score[activePlayer]));
+        } else {
+            scoreTwo.setText(String.valueOf(score[activePlayer]));
+//            activePlayer = 0;
+        }
+        switchPlayer();
+    }
+
+
 
     private void rolling() throws FileNotFoundException {
         int num =(int) (Math.floor((Math.random() * 6) + 1));
 
         if(num != 1) {
             currentscore += num;
-            System.out.println("Current scor in : " + currentscore);
+//            System.out.println("Current scor in : " + currentscore);
             rolledDice.setText(String.valueOf(num));
             System.out.println(num);
 
             stream2 = new FileInputStream("/home/kuusaa/Pictures/dice/0" + num + ".png");
             image2 = new Image(stream2);
             imageView.setImage(image2);
+
+            if(activePlayer == 0){
+                getCurrentScoreOne.setText(String.valueOf(currentscore));
+
+            } else {
+                getCurrentScoreTwo.setText(String.valueOf(currentscore));
+
+            }
         } else {
             switchPlayer();
         }
@@ -213,7 +225,7 @@ public class HelloApplication extends Application {
        stream1 =  new FileInputStream("/home/kuusaa/Pictures/dice/01.png");
         image = new Image(stream1);
         imageView.setImage(image);
-        root.getChildren().addAll(players,newGame,rollDice,hold, rolledDice,imageView);
+        root.getChildren().addAll(players,newGame,rollDice,hold,imageView);
         scene = new Scene(root, 600,900);
         window.setScene(scene);
     }
