@@ -4,17 +4,22 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import java.io.FileInputStream;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class HelloApplication extends Application {
     Stage window;
@@ -35,6 +40,12 @@ public class HelloApplication extends Application {
     Text rolledDice = new Text("0");
 
 
+    InputStream stream1,stream2,stream3,stream4,stream5,stream6;
+    Image image, image2;
+    //Creating the image view
+    ImageView imageView = new ImageView();
+    //Setting image to the image view
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -45,15 +56,25 @@ public class HelloApplication extends Application {
         ui();
 
         rollDice.setOnAction(e->{
-            rolling();
+            try {
+                rolling();
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
     }
 
-    private void rolling() {
+    private void rolling() throws FileNotFoundException {
         int num =(int) (Math.floor((Math.random() * 6) + 1));
         rolledDice.setText(String.valueOf(num));
         System.out.println(num);
+
+        stream2 =  new FileInputStream("/home/kuusaa/Pictures/dice/0" +num+".png");
+        image2 = new Image(stream2);
+        imageView.setImage(image2);
+        window.show();
+
     }
 
     private void ui() {
@@ -93,6 +114,11 @@ public class HelloApplication extends Application {
         hold.setPadding(new Insets(10));
         hold.setStyle("-fx-border: none;");
 
+        imageView.setLayoutY(100);
+        imageView.setLayoutX(330);
+        imageView.setFitHeight(250);
+        imageView.setPreserveRatio(true);
+
         window.setMaxWidth(900);
         window.setMaxHeight(600);
         window.setMinHeight(600);
@@ -101,14 +127,18 @@ public class HelloApplication extends Application {
 //        window.setResizable(false);
 
     }
-    private void addCHildrens() {
+    private void addCHildrens() throws FileNotFoundException {
 
         currentOne.getChildren().addAll(currentScoreTitle,getCurrentScoreOne);
         player1.getChildren().addAll(playerOne, scoreOne,currentOne);
 
         players.getChildren().addAll(player1, player2);
 
-        root.getChildren().addAll(players,newGame,rollDice,hold, rolledDice);
+        imageView.setImage(image);
+       stream1 =  new FileInputStream("/home/kuusaa/Pictures/dice/01.png");
+        image = new Image(stream1);
+        imageView.setImage(image);
+        root.getChildren().addAll(players,newGame,rollDice,hold, rolledDice,imageView);
         scene = new Scene(root, 600,900);
         window.setScene(scene);
     }
